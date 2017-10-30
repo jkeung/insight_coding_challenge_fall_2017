@@ -4,3 +4,6 @@
 #Data
 input/*.txt
 output/*.txt
+
+#Generated Tests
+/insight_testsuite/temp

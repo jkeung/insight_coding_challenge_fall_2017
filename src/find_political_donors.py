@@ -31,7 +31,5 @@ if __name__ == "__main__":
 
     my_contribution.close()
 
-    print("Median values by zip code is saved to {0} ") % (outfile_zip)
-    print("Median values by date is saved to {0} ") % (outfile_date)
     print("find_political_donors.py run successfully!")
     print("--- %s seconds ---\n") % (time.time() - start_time)

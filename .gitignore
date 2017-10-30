@@ -1,0 +1,6 @@
+#Compiled source
+*.pyc
+
+#Data
+input/*.txt
+output/*.txt

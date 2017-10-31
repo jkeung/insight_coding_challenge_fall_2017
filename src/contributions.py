@@ -45,8 +45,7 @@ class ContributionManager(object):
         """
 
         if groupby == 'zip_code':
-            self.writer_zip.write(
-                self.stats['zip_code'].write(self.contribution))
+            self.writer_zip.write(self.stats['zip_code'].write(self.contribution))
 
         if groupby == 'date':
             for line in self.stats['date'].write(self.contribution):
@@ -60,11 +59,40 @@ class ContributionManager(object):
         self.contribution = Contribution(row_list)
         self.contribution.parse_contribution()
 
-    def update_running_median(self):
+    def update_running_zip_code(self):
         """Adds the current contribution amount to each statistic being captured and updates the running median value.
         """
-        for key in self.stats.keys():
-            self.stats[key].add(self.contribution)
+
+        # omit blank other_id
+        if self.contribution.other_id != '':
+            pass
+        # omit entire record if cmte_id or transaction amount missing
+        elif self.contribution.cmte_id == '' or self.contribution.transaction_amt == '':
+            pass
+        # omit from zip code if zip code invalid
+        elif len(self.contribution.zip_code) < 5:
+            pass
+        else:
+            self.stats['zip_code'].add(self.contribution)
+            return True
+
+        return False
+
+    def update_running_date(self):
+        """Adds the current contribution amount to each statistic being captured and updates the running median value.
+        """
+
+        # omit blank other_id
+        if self.contribution.other_id != '':    
+            pass
+        # omit entire record if cmte_id or transaction amount missing
+        elif self.contribution.cmte_id == '' or self.contribution.transaction_amt == '':    
+            pass
+        # omit if date is not length 8
+        elif len(self.contribution.transaction_dt) != 8:   
+            pass
+        else:
+            self.stats['date'].add(self.contribution)
 
     def close(self):
         """Function to close all statistic writers.

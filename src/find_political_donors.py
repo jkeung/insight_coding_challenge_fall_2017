@@ -18,13 +18,11 @@ if __name__ == "__main__":
     while my_contribution.read_contribution():
 
         my_contribution.create_contribution()
+        my_contribution.update_running_date()
 
-        if my_contribution.contribution.other_id == '':
-            my_contribution.update_running_median()
+        write_zip_bool = my_contribution.update_running_zip_code()
+        if write_zip_bool:
             my_contribution.write_stats('zip_code')
-
-        else:
-            pass
 
     # batch
     my_contribution.write_stats('date')
